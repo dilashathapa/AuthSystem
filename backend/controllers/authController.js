@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-//REGISTER USER
+//===REGISTER USER===
 export const register = async (req, res) => {
     const {username, email, password} = req.body;
 
@@ -36,7 +36,7 @@ export const register = async (req, res) => {
     }
 };
 
-//LOGING USER
+//===LOGING USER===
 export const login = async (req, res) => {
     // Get email and password from request body
     const {email, password} = req.body;
@@ -107,7 +107,7 @@ export const login = async (req, res) => {
     }
 };
 
-//REFRESH ACCESS TOKEN
+//===REFRESH ACCESS TOKEN===
 export const refreshToken = async (req, res) => {
     // Get refresh token from cookies
     const token = req.cookies.refreshToken;
@@ -150,7 +150,7 @@ export const refreshToken = async (req, res) => {
     }
 }
 
-//LOGOUT USER
+//===LOGOUT USER===
 export const logout = (req, res) => {
     try {
         // Clear refresh token cookie
