@@ -35,6 +35,24 @@ export const deleteUser = async (req, res) => {
         
     } catch (error) {
        console.error("Error deleting user:", error); //Log error
-        return res.status(500).json({message: "Server error"}); //Return server error response 
+       return res.status(500).json({message: "Server error"}); //Return server error response 
     }
-}
+};
+
+//===GET PROFILE===
+//Controller to fetch the currently logged-in user's profile
+export const getProfile = async (req, res) => {
+    try {
+        // Find user by ID stored in req.user by authentication middleware
+        const user = await User.findById(req.user.id).select("-password");
+        // Check if user exists
+        if(!user) {
+            return res.status(404).json({message: "user not found"});
+        }
+        // Send user profile data
+        res.status(200).json(user);
+    } catch (error) {
+      console.error("Error fetching profile:", error); //Log error
+      return res.status(500).json({message: "Server error"}); //Return server error response   
+    }
+};
