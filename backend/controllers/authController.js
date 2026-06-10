@@ -120,7 +120,7 @@ export const refreshToken = async (req, res) => {
         const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET); // Verify refresh token
         const user = await User.findById(decoded.id);// Find user using decoded ID
 
-        // Check if user exists
+        // Check if user exists 
         if (!user) {
             return res.status(404).json({message: "User not found"});
         }
