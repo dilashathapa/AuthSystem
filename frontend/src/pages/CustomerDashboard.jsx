@@ -10,8 +10,8 @@ const CustomerDashboard = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await getCustomerProfile();
-        setProfile(response.data);
+        const profileData = await getCustomerProfile();
+        setProfile(profileData);
       } catch (err) {
         console.error("Failed to load customer profile", err);
         setError(err.response?.data?.message || "Failed to load customer profile details.");

@@ -12,8 +12,13 @@ const ProtectedRoute = ({ allowedRoles }) => {
 
   try {
     const user = JSON.parse(userStr);
-    
-    if (allowedRoles && !allowedRoles.includes(user.role)) {
+    // Normalize role comparison
+    const userRole = user.role?.toUpperCase();
+
+    if (
+      allowedRoles &&
+      !allowedRoles.map(role => role.toUpperCase()).includes(userRole)
+    ) {
       // Authenticated but does not have the required role, redirect to Access Denied
       return <Navigate to="/access-denied" replace />;
     }

@@ -91,7 +91,7 @@ export const getStaffProfile = async () => {
 
 // Customer endpoints
 export const getCustomerProfile = async () => {
-  const response = await API.get("/api/customer/profile");
+  const response = await API.get("/api/users/profile");
   return response.data;
 };
 

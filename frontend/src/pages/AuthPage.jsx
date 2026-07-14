@@ -91,15 +91,14 @@ const AuthPage = () => {
       
       // Redirect based on role
       setTimeout(() => {
-        const role = user.role;
+        const role = user.role.toUpperCase();
+
         if (role === "ADMIN") {
           navigate("/admin");
         } else if (role === "STAFF") {
           navigate("/staff");
         } else if (role === "CUSTOMER") {
           navigate("/customer");
-        } else {
-          navigate("/"); 
         }
       }, 500);
       
