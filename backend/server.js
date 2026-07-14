@@ -5,6 +5,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
+import adminRoutes from './routes/admin.js'; 
+import staffRoutes from './routes/staff.js';
+
 
 dotenv.config(); // Load environment variables
 const PORT = process.env.PORT || 5000;// Get port from environment variables or use 5000 as default
@@ -23,6 +26,8 @@ app.use(cookieParser());// Parse cookies from incoming requests
 //===ROUTES===
 app.use('/api/auth', authRoutes);// Authentication routes
 app.use('/api/users', userRoutes);// User management routes
+app.use('/api', adminRoutes);
+app.use('/api', staffRoutes); 
 
 //===DATABASE CONNECTION===
 connectDB();

@@ -36,4 +36,4 @@ export const verifyRole = (role) => {
         }
     next(); // Allow access if role matches
 };
-};
+}

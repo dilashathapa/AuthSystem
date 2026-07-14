@@ -107,12 +107,17 @@ const AdminDashboard = () => {
     }
   };
 
+  // FIXED: Updated handleCreateStaff function
   const handleCreateStaff = async (e) => {
     e.preventDefault();
+    
+    // Validate passwords match
     if (staffData.password !== staffData.confirmPassword) {
       showToast("Passwords do not match", "error");
       return;
     }
+    
+    // Validate password length
     if (staffData.password.length < 6) {
       showToast("Password must be at least 6 characters long", "error");
       return;
@@ -120,7 +125,17 @@ const AdminDashboard = () => {
 
     try {
       setCreatingStaff(true);
-      await createStaff(staffData);
+      
+      // Create a new object with ONLY the fields the backend expects
+      const staffDataToSend = {
+        username: staffData.username,
+        email: staffData.email,
+        fullName: staffData.fullName,
+        password: staffData.password
+        // NOT sending confirmPassword - this was causing the 400 error
+      };
+      
+      await createStaff(staffDataToSend);
       showToast("Staff user created successfully");
       setIsModalOpen(false);
       
@@ -285,8 +300,8 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {users.map((user) => (
-                    <tr key={user.id} className="hover:bg-slate-50/50 transition-colors">
+                  {users.map((user, index) => (
+                    <tr key={user.id || index} className="hover:bg-slate-50/50 transition-colors">
                       <td className="px-6 py-4 text-sm font-semibold text-slate-400">
                         #{user.id}
                       </td>
@@ -446,7 +461,7 @@ const AdminDashboard = () => {
                 <button
                   type="submit"
                   disabled={creatingStaff}
-                  className="rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 text-sm shadow-md shadow-indigo-100 transition cursor-pointer"
+                  className="rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 text-sm shadow-md shadow-indigo-100 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {creatingStaff ? "Creating Account..." : "Create Staff"}
                 </button>
